@@ -1,6 +1,5 @@
 {
   "name": "nexapro-website",
-  "homepage": "https://ss-shekhawat.github.io/nexapro-website",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -11,6 +10,7 @@
     "deploy": "npm run build && gh-pages -d dist"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0"

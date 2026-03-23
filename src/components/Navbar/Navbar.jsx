@@ -79,25 +79,28 @@ const Navbar = () => {
       // We use template literals (backticks) to dynamically add classes
       className={`
         fixed top-0 left-0 right-0 z-50 transition-all duration-300
+        bg-secondary
         ${
-          isScrolled
-            ? "bg-white shadow-lg" // When scrolled
-            : "bg-white" // At top of page
+          // ? "bg-white shadow-lg" // When scrolled
+          // : "bg-white" // At top of page
+          isScrolled ? "shadow-lg" : ""
         }
       `}
       // INTERVIEW TIP: "I use conditional rendering to change UI based on state"
     >
-      <div className="container-custom">
+      {/* <div className="container-custom"> */}
+      {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+       */}
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* LOGO SECTION */}
           <div className="flex-shrink-0">
-            <a
-              href="#home"
-              className="text-2xl font-bold text-primary hover:text-red-600 transition-colors"
-              onClick={closeMenu}
-            >
-              {companyInfo.name}
-              {/* 📚 USING DATA: We use {curly braces} to insert JavaScript in JSX */}
+            <a href="#home" className="block" onClick={closeMenu}>
+              <img
+                src="/nexapro-logo.png"
+                alt="Nexapro Technologies"
+                className="h-28 w-auto"
+              />
             </a>
           </div>
 
@@ -117,7 +120,7 @@ const Navbar = () => {
                 // Use unique, stable IDs - don't use array index as key in production!
 
                 href={link.href}
-                className="text-gray-700 hover:text-primary transition-colors font-medium text-sm"
+                className="text-white hover:text-primary transition-colors font-medium text-sm"
               >
                 {link.name}
               </a>
@@ -130,7 +133,7 @@ const Navbar = () => {
             <button
               onClick={toggleMenu} // 📚 EVENT HANDLER
               // INTERVIEW TIP: "In React, we use onClick (camelCase), not onclick"
-              className="text-gray-700 hover:text-primary focus:outline-none"
+              className="text-white hover:text-primary focus:outline-none"
               aria-label="Toggle menu"
             >
               {/* 📚 CONDITIONAL RENDERING with ternary operator */}

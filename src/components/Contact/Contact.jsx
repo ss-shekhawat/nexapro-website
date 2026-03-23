@@ -1,16 +1,12 @@
-// 📚 Contact Component - DEMONSTRATES FORM HANDLING IN REACT
-// This is one of the MOST IMPORTANT interview topics!
+// 📚 Contact Component with EmailJS - NO BACKEND NEEDED!
 
 import { useState } from "react";
-import { companyInfo, contactFormFields } from "../../data/content";
+import emailjs from "@emailjs/browser";
+import { companyInfo } from "../../data/content";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 
 const Contact = () => {
-  // 📚 FORM STATE MANAGEMENT
-  // INTERVIEW QUESTION: "How do you handle forms in React?"
-  // ANSWER: "I use controlled components with useState"
-
-  // State for form data - one object to hold all field values
+  // Form state
   const [formData, setFormData] = useState({
     name: "",
     company: "",
@@ -20,27 +16,20 @@ const Contact = () => {
     message: "",
   });
 
-  // State for form errors
   const [errors, setErrors] = useState({});
-
-  // State for submission status
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-  // 📚 HANDLING INPUT CHANGES (Controlled Components)
-  // INTERVIEW CONCEPT: "Controlled Component" - React controls the input value
-  // The input value is always driven by state
-
+  // Handle input changes
   const handleChange = (e) => {
-    const { name, value } = e.target; // Destructure event target
-
-    // Update form data for the specific field that changed
+    const { name, value } = e.target;
     setFormData((prevState) => ({
-      ...prevState, // 📚 SPREAD OPERATOR: Keep all other fields
-      [name]: value, // 📚 COMPUTED PROPERTY: Update only this field
+      ...prevState,
+      [name]: value,
     }));
 
-    // Clear error for this field when user starts typing
+    // Clear error for this field
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
@@ -49,13 +38,10 @@ const Contact = () => {
     }
   };
 
-  // 📚 FORM VALIDATION
-  // INTERVIEW TIP: "I implement client-side validation for better UX"
-
+  // Validation
   const validateForm = () => {
     const newErrors = {};
 
-    // Check each required field
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
     }
@@ -64,7 +50,6 @@ const Contact = () => {
       newErrors.company = "Company name is required";
     }
 
-    // Email validation with regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
@@ -72,7 +57,6 @@ const Contact = () => {
       newErrors.email = "Please enter a valid email";
     }
 
-    // Phone validation (basic)
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone number is required";
     } else if (formData.phone.length < 10) {
@@ -90,48 +74,68 @@ const Contact = () => {
     return newErrors;
   };
 
-  // 📚 FORM SUBMISSION
-  // INTERVIEW QUESTION: "How do you prevent default form submission?"
-  // ANSWER: "Use e.preventDefault() to handle submission with JavaScript"
-
+  // Handle form submission with EmailJS
   const handleSubmit = (e) => {
-    e.preventDefault(); // 📚 Prevent page reload
+    e.preventDefault();
 
-    // Validate form
+    // Validate
     const newErrors = validateForm();
-
     if (Object.keys(newErrors).length > 0) {
-      // If there are errors, set them and don't submit
       setErrors(newErrors);
       return;
     }
 
-    // Simulate form submission
     setIsSubmitting(true);
+    setSubmitError("");
 
-    // In a real app, you'd send data to a backend API here
-    console.log("Form submitted:", formData);
+    // 🔥 EMAILJS CONFIGURATION
+    // Replace these with your actual EmailJS credentials
+    const serviceID = "service_wj1qll9"; // From EmailJS dashboard
+    const templateID = "template_pvtw0fs"; // From EmailJS dashboard
+    const publicKey = "y6w8HaeZWHt3sVoXM"; // From EmailJS dashboard
 
-    // Simulate API call delay
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitSuccess(true);
+    // Prepare template parameters
+    const templateParams = {
+      from_name: formData.name,
+      company_name: formData.company,
+      from_email: formData.email,
+      phone_number: formData.phone,
+      service_required: formData.service,
+      message: formData.message,
+      to_email: "nexaprotechnology@gmail.com", // Where you want to receive emails
+    };
 
-      // Reset form
-      setFormData({
-        name: "",
-        company: "",
-        email: "",
-        phone: "",
-        service: "",
-        message: "",
+    // Send email using EmailJS
+    emailjs
+      .send(serviceID, templateID, templateParams, publicKey)
+      .then((response) => {
+        console.log("SUCCESS!", response.status, response.text);
+        setIsSubmitting(false);
+        setSubmitSuccess(true);
+
+        // Reset form
+        setFormData({
+          name: "",
+          company: "",
+          email: "",
+          phone: "",
+          service: "",
+          message: "",
+        });
+
+        // Hide success message after 5 seconds
+        setTimeout(() => {
+          setSubmitSuccess(false);
+        }, 5000);
+      })
+      .catch((error) => {
+        console.error("FAILED...", error);
+        setIsSubmitting(false);
+        setSubmitError(
+          "Failed to send message. Please try again or contact us directly at " +
+            companyInfo.email,
+        );
       });
-
-      // Hide success message after 3 seconds
-      setTimeout(() => {
-        setSubmitSuccess(false);
-      }, 3000);
-    }, 1000);
   };
 
   return (
@@ -204,11 +208,18 @@ const Contact = () => {
             {/* Success Message */}
             {submitSuccess && (
               <div className="mb-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
-                Thank you! Your message has been sent successfully.
+                ✅ Thank you! Your message has been sent successfully. We'll get
+                back to you soon!
               </div>
             )}
 
-            {/* 📚 CONTROLLED FORM */}
+            {/* Error Message */}
+            {submitError && (
+              <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                ❌ {submitError}
+              </div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Name Field */}
               <div>
@@ -222,8 +233,8 @@ const Contact = () => {
                   type="text"
                   id="name"
                   name="name"
-                  value={formData.name} // 📚 CONTROLLED: value from state
-                  onChange={handleChange} // 📚 CONTROLLED: updates state
+                  value={formData.name}
+                  onChange={handleChange}
                   className={`input-field ${errors.name ? "border-red-500" : ""}`}
                   placeholder="Your Name"
                 />
@@ -314,12 +325,18 @@ const Contact = () => {
                   className={`input-field ${errors.service ? "border-red-500" : ""}`}
                 >
                   <option value="">Select a service</option>
-                  <option value="legacy">Legacy Systems Services</option>
-                  <option value="modernization">
+                  <option value="Legacy Systems Services">
+                    Legacy Systems Services
+                  </option>
+                  <option value="Legacy Modernization & Integration">
                     Legacy Modernization & Integration
                   </option>
-                  <option value="modern">Modern Technology Solutions</option>
-                  <option value="consulting">Consulting & Support</option>
+                  <option value="Modern Technology Solutions">
+                    Modern Technology Solutions
+                  </option>
+                  <option value="Consulting & Support">
+                    Consulting & Support
+                  </option>
                 </select>
                 {errors.service && (
                   <p className="text-red-500 text-sm mt-1">{errors.service}</p>
@@ -365,38 +382,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
-/*
-🎯 CRITICAL FORM CONCEPTS COVERED:
-
-1. ✅ Controlled Components (value + onChange)
-2. ✅ Form state management with useState
-3. ✅ Form validation (client-side)
-4. ✅ Error handling and display
-5. ✅ Event handling (onChange, onSubmit)
-6. ✅ Preventing default behavior (e.preventDefault)
-7. ✅ Computed property names ([name]: value)
-8. ✅ Conditional rendering (errors, success message)
-9. ✅ Async state updates (form submission)
-10. ✅ Form reset after submission
-
-INTERVIEW QUESTIONS THIS COMPONENT ANSWERS:
-
-Q: "What are controlled components?"
-A: "Components where React state is the single source of truth for form inputs.
-    The input value is set by state, and onChange updates that state."
-
-Q: "How do you validate forms in React?"
-A: "I implement a validation function that checks each field and returns
-    an errors object. I show errors conditionally and clear them on change."
-
-Q: "What's the difference between controlled and uncontrolled components?"
-A: "Controlled = state-driven, React controls the value
-    Uncontrolled = DOM-driven, access value with refs"
-
-Q: "How do you handle multiple form inputs efficiently?"
-A: "Use one state object with computed property names in onChange:
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))"
-
-THIS IS A MUST-KNOW FOR INTERVIEWS! 🔥
-*/

@@ -12,7 +12,11 @@ const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-2xl font-bold mb-4">{companyInfo.name}</h3>
+            <img
+              src="/nexapro-logo.png"
+              alt="Nexapro Technologies"
+              className="h-16 mb-4"
+            />
             <p className="text-gray-300 mb-4">{companyInfo.tagline}</p>
             <p className="text-gray-400 text-sm">{companyInfo.subtitle}</p>
           </div>
@@ -57,12 +61,12 @@ const Footer = () => {
               >
                 <FaTwitter size={24} />
               </a>
-              <a
+              {/* <a
                 href="#"
                 className="text-gray-300 hover:text-primary transition-colors"
               >
                 <FaGithub size={24} />
-              </a>
+              </a> */}
               <a
                 href={`mailto:${companyInfo.email}`}
                 className="text-gray-300 hover:text-primary transition-colors"
