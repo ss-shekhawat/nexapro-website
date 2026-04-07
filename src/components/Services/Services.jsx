@@ -1,4 +1,4 @@
-// 📚 Services Component - Demonstrates component composition and mapping
+
 
 import { servicesData } from "../../data/content";
 import {
@@ -10,15 +10,9 @@ import {
 } from "react-icons/fa";
 
 // 📚 COMPONENT COMPOSITION PATTERN
-// Instead of one huge component, we break it into smaller pieces
-// This is a "Service Card" sub-component (child component)
 
 const ServiceCard = ({ service }) => {
-  // 📚 PROPS DESTRUCTURING: { service } extracts service from props object
-  // Instead of: props.service, we can directly use: service
 
-  // 📚 ICON MAPPING: Match string names to actual icon components
-  // INTERVIEW TIP: "I used an object to map dynamic data to React components"
   const iconMap = {
     FaServer: FaServer,
     FaCloud: FaCloud,
@@ -72,9 +66,6 @@ const Services = () => {
         {/* 📚 RESPONSIVE GRID: 1 column on mobile, 2 on tablet, 2 on desktop */}
         <div className="grid md:grid-cols-2 gap-8">
           {/* 📚 COMPONENT COMPOSITION: We render ServiceCard for each service */}
-          {/* INTERVIEW QUESTION: "How do you pass data to child components?" */}
-          {/* ANSWER: "Through props - we pass the service object to ServiceCard" */}
-
           {servicesData.map((service) => (
             <ServiceCard
               key={service.id}
@@ -99,29 +90,4 @@ const Services = () => {
 
 export default Services;
 
-/*
-🎯 ADVANCED CONCEPTS DEMONSTRATED:
 
-1. ✅ Component Composition (ServiceCard inside Services)
-2. ✅ Props passing and destructuring
-3. ✅ Dynamic icon rendering
-4. ✅ Nested arrays mapping (.map inside .map)
-5. ✅ Group hover effects (Tailwind)
-6. ✅ Reusable card pattern
-
-INTERVIEW TALKING POINTS:
-- "I broke down complex UI into smaller, reusable components"
-- "Used props to pass data from parent to child"
-- "Implemented dynamic icon rendering based on data"
-- "Applied group hover for better UX"
-
-COMMON INTERVIEW QUESTIONS THIS ANSWERS:
-Q: "What is component composition?"
-A: "Building complex UIs by combining smaller, reusable components"
-
-Q: "How do you handle dynamic content?"
-A: "I use .map() to iterate over data and create components dynamically"
-
-Q: "What are the benefits of breaking components into smaller pieces?"
-A: "Reusability, easier testing, better maintainability, clearer code"
-*/
