@@ -1,4 +1,4 @@
-// 📚 Footer Component - Simple static component
+
 
 import { companyInfo, navLinks } from "../../data/content";
 import { FaTwitter, FaLinkedin, FaGithub, FaEnvelope } from "react-icons/fa";
