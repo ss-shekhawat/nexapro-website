@@ -1,4 +1,4 @@
-// 📚 Contact Component with EmailJS - NO BACKEND NEEDED!
+
 
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
@@ -88,8 +88,7 @@ const Contact = () => {
     setIsSubmitting(true);
     setSubmitError("");
 
-    // 🔥 EMAILJS CONFIGURATION
-    // Replace these with your actual EmailJS credentials
+   
     const serviceID = "service_wj1qll9"; // From EmailJS dashboard
     const templateID = "template_pvtw0fs"; // From EmailJS dashboard
     const publicKey = "y6w8HaeZWHt3sVoXM"; // From EmailJS dashboard
