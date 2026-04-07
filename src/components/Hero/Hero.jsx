@@ -1,12 +1,9 @@
-// 📚 Hero Component - The first section visitors see
-// This demonstrates: Props, Component Composition, Tailwind styling
+
 
 import { heroData, companyInfo } from "../../data/content";
 import { FaRocket, FaCheckCircle } from "react-icons/fa";
 
 const Hero = () => {
-  // 📚 INTERVIEW TIP: This component doesn't need state because it's static content
-  // Not every component needs useState! Only use it when data changes.
 
   return (
     <section
@@ -24,8 +21,7 @@ const Hero = () => {
             </p>
 
             {/* Main Heading */}
-            {/* 📚 SEMANTIC HTML: Use proper heading hierarchy (h1, h2, h3...) */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark leading-tight">
+                      <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-dark leading-tight">
               {companyInfo.subtitle}
             </h1>
 
@@ -93,19 +89,3 @@ const Hero = () => {
 
 export default Hero;
 
-/*
-🎯 CONCEPTS DEMONSTRATED:
-
-1. ✅ Component without state (not everything needs useState)
-2. ✅ Semantic HTML (section, h1)
-3. ✅ Responsive grid layout (md:grid-cols-2)
-4. ✅ Tailwind utility classes
-5. ✅ Icon integration
-6. ✅ Accessibility considerations
-7. ✅ Component organization
-
-INTERVIEW TALKING POINTS:
-- "I used a grid layout for responsive design"
-- "Separated content from components for maintainability"
-- "Applied semantic HTML for better SEO and accessibility"
-*/
