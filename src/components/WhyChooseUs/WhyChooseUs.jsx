@@ -60,15 +60,3 @@ const WhyChooseUs = () => {
 
 export default WhyChooseUs;
 
-/*
-🎯 DESIGN CONCEPTS:
-
-1. ✅ Gradient backgrounds for visual appeal
-2. ✅ Glass-morphism effect (backdrop-blur)
-3. ✅ Scale on hover for interactivity
-4. ✅ Contrast for readability (white text on colored bg)
-
-INTERVIEW TIP:
-"I used backdrop-blur and transparency to create a modern
-glass-morphism effect while maintaining readability"
-*/
