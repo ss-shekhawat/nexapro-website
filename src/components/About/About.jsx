@@ -103,16 +103,4 @@ const About = () => {
 
 export default About;
 
-/*
-🎯 KEY POINTS:
 
-1. ✅ Reusable card components
-2. ✅ Grid layouts for responsive design
-3. ✅ Icon integration for visual appeal
-4. ✅ Hover effects for interactivity
-5. ✅ Proper spacing and typography
-
-INTERVIEW TIP:
-"I organized content into logical sections and used consistent
-spacing/styling for a professional look"
-*/
