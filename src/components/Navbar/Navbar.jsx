@@ -68,7 +68,7 @@ const Navbar = () => {
           <div className="flex-shrink-0">
             <a href="#home" className="block" onClick={closeMenu}>
               <img
-                src="/nexapro-logo.png"
+                src="/nexapro-blue.png"
                 alt="Nexapro Technologies"
                 className="h-28 w-auto"
               />
