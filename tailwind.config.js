@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#EF233C',      // Red from original template
+        primary: '#2196F3',      // Sky Professional 
         secondary: '#2B2D42',    // Dark navy
         accent: '#8D99AE',       // Light gray-blue
         light: '#EDF2F4',        // Off-white
